@@ -76,11 +76,9 @@ test('readRemoveFile()', function(t) {
     t.equal(err.code, 'EISDIR', 'should pass the fs.readFile error to the callback.');
   });
 
-  outputFileSync('tmp3/file', '');
-  fs.chmodSync('tmp3', '0644');
+  outputFileSync('tmp3/file', {mode: 444});
   readRemoveFile('./tmp3/file', function(err) {
-    t.equal(err.code, 'EACCES', 'should pass rimraf\'s error to the callback.');
-    fs.chmodSync('tmp3', '0777');
+    t.equal(err.code, 'EINVAL', 'should pass rimraf\'s error to the callback.');
     rimraf.sync('tmp3');
   });
 
