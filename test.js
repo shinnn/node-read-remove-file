@@ -78,7 +78,12 @@ test('readRemoveFile()', function(t) {
 
   outputFileSync('tmp3/file', {mode: 444});
   readRemoveFile('./tmp3/file', function(err) {
-    t.equal(err.code, 'EINVAL', 'should pass rimraf\'s error to the callback.');
+    /* istanbul ignore if */
+    if (process.platform === 'win32') {
+      t.skip();
+    } else {
+      t.equal(err.code, 'EINVAL', 'should pass rimraf\'s error to the callback.');
+    }
     rimraf.sync('tmp3');
   });
 
