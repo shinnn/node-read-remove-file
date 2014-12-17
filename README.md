@@ -1,10 +1,10 @@
 # read-remove-file
 
-[![Build Status](https://travis-ci.org/shinnn/node-read-remove-file.svg?branch=master)](https://travis-ci.org/shinnn/node-read-remove-file)
+[![Build Status](https://img.shields.io/travis/shinnn/node-read-remove-file.svg?style=flat)](https://travis-ci.org/shinnn/node-read-remove-file)
 [![Build status](https://ci.appveyor.com/api/projects/status/pf1uwmte81vpis5b?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/node-read-remove-file)
-[![Coverage Status](https://img.shields.io/coveralls/shinnn/node-read-remove-file.svg)](https://coveralls.io/r/shinnn/node-read-remove-file)
-[![Dependency Status](https://david-dm.org/shinnn/node-read-remove-file.svg)](https://david-dm.org/shinnn/node-read-remove-file)
-[![devDependency Status](https://david-dm.org/shinnn/node-read-remove-file/dev-status.svg)](https://david-dm.org/shinnn/node-read-remove-file#info=devDependencies)
+[![Coverage Status](https://img.shields.io/coveralls/shinnn/node-read-remove-file.svg?style=flat)](https://coveralls.io/r/shinnn/node-read-remove-file)
+[![Dependency Status](https://david-dm.org/shinnn/node-read-remove-file.svg?style=flat)](https://david-dm.org/shinnn/node-read-remove-file)
+[![devDependency Status](https://david-dm.org/shinnn/node-read-remove-file/dev-status.svg?style=flat)](https://david-dm.org/shinnn/node-read-remove-file#info=devDependencies)
 
 Read a file, then remove it
 
@@ -24,9 +24,9 @@ readRemoveFile('path/to/file', function(err, buf) {
 
 ## Installation
 
-[![NPM version](https://badge.fury.io/js/read-remove-file.svg)](https://www.npmjs.org/package/read-remove-file)
+[![NPM version](https://img.shields.io/npm/v/read-remove-file.svg?style=flat)](https://www.npmjs.com/package/read-remove-file)
 
-[Use npm](https://www.npmjs.org/doc/cli/npm-install.html).
+[Use npm.](https://docs.npmjs.com/cli/install)
 
 ```sh
 npm install read-remove-file
