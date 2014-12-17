@@ -65,7 +65,7 @@ readRemoveFile('foo/bar/baz', function(err, buf) {
 });
 ```
 
-If the path is an absolute path, it only removes the file it read, and doesn't remove the directories.
+If the path is an absolute path, it doesn't remove any directories. In this case, it removes only a file.
 
 ```javascript
 readRemoveFile('/foo/bar/baz', function(err, buf) {
@@ -92,7 +92,7 @@ You can use all [fs.readFile] options and [`cwd` option](#optionscwd).
 Type: `String`  
 Default: `undefined` (disabled)
 
-The target becomes relative to this path. However, the directories specified in this option won't be removed.
+The target becomes relative to this path but the directories specified in this option won't be removed.
 
 ```javascript
 readRemoveFile('foo/bar/baz', {}, function() {
@@ -109,7 +109,7 @@ readRemoveFile('bar/baz', {cwd: 'foo'}, function() {
 #### callback(*error*, *data*)
 
 *error*: `Error` or `null`  
-*data*: `Buffer` or `String` (according to `encoding` option)
+*data*: [`Buffer`](http://nodejs.org/api/buffer.html#buffer_class_buffer) or `String` (according to `encoding` option)
 
 The first argument will be an `Error` if it fails to read a file, or fails to remove the file or directories. It will be `null` only if both reading the file and removing directories succeeded.
 
