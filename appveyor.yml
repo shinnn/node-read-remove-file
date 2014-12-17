@@ -16,7 +16,6 @@ build: off
 
 test_script:
   - ps: 'node test.js #PowerShell'
-  - icacls tmp3 /grant Everyone:F
   - cmd: node test.js
 
 cache:

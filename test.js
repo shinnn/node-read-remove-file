@@ -2,10 +2,10 @@
 
 var path = require('path');
 
+var del = require('del');
 var fs = require('graceful-fs');
 var outputFileSync = require('output-file-sync');
 var readRemoveFile = require('./');
-var rimraf = require('rimraf');
 var test = require('tape');
 
 test('readRemoveFile()', function(t) {
@@ -93,13 +93,18 @@ test('readRemoveFile()', function(t) {
     t.equal(err.code, 'EISDIR', 'should pass the fs.readFile error to the callback.');
   });
 
-  outputFileSync('tmp2/file', 'abc123');
-  fs.chmodSync('tmp2/', '444');
+  /* istanbul ignore if */
+  if (process.platform === 'win32') {
+    t.skip();
+  } else {
+    outputFileSync('tmp2/file', 'abc123');
+    fs.chmodSync('tmp2/', '444');
 
-  readRemoveFile('./tmp2/file', function(err) {
-    t.equal(err.code, 'EACCES', 'should pass rimraf\'s error to the callback.');
-    fs.chmodSync('tmp2', '755');
-  });
+    readRemoveFile('./tmp2/file', function(err) {
+      t.equal(err.code, 'EACCES', 'should pass rimraf\'s error to the callback.');
+      fs.chmodSync('tmp2', '755');
+    });
+  }
 
   t.throws(
     readRemoveFile.bind(null, true, t.fail),
@@ -120,11 +125,6 @@ test('readRemoveFile()', function(t) {
   );
 
   t.on('end', function() {
-    rimraf.sync('tmp1');
-
-    /* istanbul ignore else */
-    if (process.platform !== 'win32') {
-      rimraf.sync('tmp2');
-    }
+    del.sync('tmp*');
   });
 });
