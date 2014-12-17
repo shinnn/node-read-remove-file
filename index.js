@@ -38,7 +38,7 @@ module.exports = function readRemoveFile(filePath, options, cb) {
     var removePath;
 
     if (isRelative(readFilePath)) {
-      var dir = path.dirname(filePath);
+      var dir = path.normalize(path.dirname(filePath));
 
       if (dir === '.') {
         removePath = readFilePath;
