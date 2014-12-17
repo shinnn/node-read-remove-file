@@ -10,11 +10,14 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install --production
-  - npm install nop output-file-sync tape
+  - npm install
 
 build: off
 
 test_script:
   - ps: 'node test.js #PowerShell'
+  - icacls tmp3 /grant Everyone:F
   - cmd: node test.js
+
+cache:
+  - node_modules
