@@ -8,8 +8,8 @@
     "url": "https://github.com/shinnn"
   },
   "scripts": {
-    "pretest": "eslint *.js && jscs *.js",
-    "test": "node test.js | tap-spec",
+    "pretest": "jscs index.js test.js && eslint index.js test.js",
+    "test": "node test.js",
     "coverage": "istanbul cover test.js",
     "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
   },
@@ -35,9 +35,9 @@
     "asynchronous"
   ],
   "dependencies": {
-    "is-relative": "^0.1.3",
     "graceful-fs": "^3.0.6",
-    "rimraf": "^2.3.2"
+    "rimraf": "^2.3.2",
+    "strip-bom": "^1.0.0"
   },
   "devDependencies": {
     "del": "^1.1.1",
