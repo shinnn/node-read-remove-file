@@ -4,6 +4,7 @@ var path = require('path');
 
 var del = require('del');
 var fs = require('graceful-fs');
+var isDir = require('is-dir');
 var outputFileSync = require('output-file-sync');
 var readRemoveFile = require('./');
 var test = require('tape');
@@ -16,8 +17,8 @@ test('readRemoveFile()', function(t) {
   readRemoveFile('tmp_file0', function(err, buf) {
     t.deepEqual([err, buf], [null, new Buffer('foo')], 'should read a file.');
 
-    fs.exists('tmp_file0', function(result) {
-      t.notOk(result, 'should remove a file.');
+    fs.stat('tmp_file0', function(err) {
+      t.equal(err.code, 'ENOENT', 'should remove a file.');
     });
   });
 
@@ -30,8 +31,8 @@ test('readRemoveFile()', function(t) {
       'should read content of a file under the new directory.'
     );
 
-    fs.exists('tmp0', function(result) {
-      t.notOk(result, 'should remove a directory.');
+    fs.stat('tmp0', function(err) {
+      t.equal(err.code, 'ENOENT', 'should remove a directory.');
     });
   });
 
@@ -44,11 +45,15 @@ test('readRemoveFile()', function(t) {
       'should accept fs.readFile options.'
     );
 
-    fs.exists('tmp1', function(result) {
-      t.ok(result, 'should not remove th file specified in `cwd` option.');
+    isDir('tmp1', function(err, result) {
+      t.deepEqual(
+        [err, result],
+        [null, true],
+        'should not remove th file specified in `cwd` option.'
+      );
 
-      fs.exists('tmp1/nested', function(result) {
-        t.notOk(result, 'should remove a directory in response to `cwd` option.');
+      fs.stat('tmp1/nested', function(err) {
+        t.equal(err.code, 'ENOENT', 'should remove a directory in response to `cwd` option.');
       });
 
       fs.writeFileSync('tmp1/file', 'qux');
@@ -60,12 +65,16 @@ test('readRemoveFile()', function(t) {
           'should read a file specified with an absolute path.'
         );
 
-        fs.exists('tmp1', function(result) {
-          t.ok(result, 'should not remove any directories when the path is absolute.');
+        isDir('tmp1', function(err, result) {
+          t.deepEqual(
+            [err, result],
+            [null, true],
+            'should not remove any directories when the path is absolute.'
+          );
         });
 
-        fs.exists('tmp1/file', function(result) {
-          t.notOk(result, 'should remove a file specified with an absolute path.');
+        fs.stat('tmp1/file', function(err) {
+          t.equal(err.code, 'ENOENT', 'should remove a file specified with an absolute path.');
         });
       });
     });
@@ -80,12 +89,20 @@ test('readRemoveFile()', function(t) {
       'should read a file in response to `cwd` option.'
     );
 
-    fs.exists('tmp_file1', function(result) {
-      t.notOk(result, 'should remove a file specified using `cwd` option with absolute path.');
+    fs.stat('tmp_file1', function(err) {
+      t.equal(
+        err.code,
+        'ENOENT',
+        'should remove a file specified using `cwd` option with absolute path.'
+      );
     });
 
-    fs.exists('/', function(result) {
-      t.ok(result, 'should not remove the root directory.');
+    isDir('/', function(err, result) {
+      t.ok(
+        [err, result],
+        [null, true],
+        'should not remove the root directory.'
+      );
     });
   });
 
