@@ -8,7 +8,7 @@
     "url": "https://github.com/shinnn"
   },
   "scripts": {
-    "pretest": "jscs index.js test.js && eslint index.js test.js",
+    "pretest": "eslint --config node_modules/@shinnn/eslintrc-node/rc.json --rule='no-shadow: 0' index.js test.js",
     "test": "node test.js",
     "coverage": "istanbul cover test.js",
     "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
@@ -40,18 +40,13 @@
     "strip-bom": "^1.0.0"
   },
   "devDependencies": {
+    "@shinnn/eslintrc-node": "^1.0.2",
     "del": "^1.1.1",
-    "eslint": "^0.19.0",
+    "eslint": "^0.20.0",
     "is-dir": "^1.0.0",
     "istanbul": "^0.3.13",
     "istanbul-coveralls": "^1.0.2",
-    "jscs": "^1.12.0",
     "output-file-sync": "^1.1.0",
     "tape": "^4.0.0"
-  },
-  "jscsConfig": {
-    "preset": "google",
-    "maximumLineLength": 98,
-    "validateLineBreaks": "LF"
   }
 }
