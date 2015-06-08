@@ -1,3 +1,4 @@
+/* eslint no-shadow: 0 */
 'use strict';
 
 var path = require('path');
@@ -98,7 +99,7 @@ test('readRemoveFile()', function(t) {
     });
 
     isDir('/', function(err, result) {
-      t.ok(
+      t.deepEqual(
         [err, result],
         [null, true],
         'should not remove the root directory.'
