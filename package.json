@@ -27,16 +27,15 @@
     "asynchronous"
   ],
   "dependencies": {
-    "graceful-fs": "^3.0.8",
-    "rimraf": "^2.4.0",
-    "strip-bom": "^1.0.0"
+    "graceful-fs": "^4.1.2",
+    "rimraf": "^2.4.1",
+    "strip-bom": "^2.0.0"
   },
   "devDependencies": {
     "@shinnn/eslintrc-node": "^1.0.2",
-    "del": "^1.2.0",
-    "eslint": "^0.22.1",
+    "eslint": "^0.24.0",
     "is-dir": "^1.0.0",
-    "istanbul": "^0.3.14",
+    "istanbul": "^0.3.17",
     "istanbul-coveralls": "^1.0.3",
     "output-file-sync": "^1.1.1",
     "tape": "^4.0.0"

@@ -3,11 +3,11 @@
 
 var path = require('path');
 
-var del = require('del');
 var fs = require('graceful-fs');
 var isDir = require('is-dir');
 var outputFileSync = require('output-file-sync');
 var readRemoveFile = require('./');
+var rimraf = require('rimraf');
 var test = require('tape');
 
 test('readRemoveFile()', function(t) {
@@ -143,6 +143,6 @@ test('readRemoveFile()', function(t) {
   );
 
   t.on('end', function() {
-    del.sync('tmp*');
+    rimraf.sync('tmp*');
   });
 });
