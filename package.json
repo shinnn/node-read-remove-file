@@ -5,9 +5,9 @@
   "repository": "shinnn/node-read-remove-file",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
   "scripts": {
-    "pretest": "eslint --config node_modules/@shinnn/eslintrc-node/rc.json index.js test.js",
-    "test": "node test.js",
-    "coverage": "istanbul cover test.js",
+    "pretest": "eslint --config @shinnn/node index.js test.js",
+    "test": "node --strong_mode test.js",
+    "coverage": "node --strong_mode node_modules/.bin/istanbul cover test.js",
     "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
   },
   "license": "MIT",
@@ -28,16 +28,16 @@
   ],
   "dependencies": {
     "graceful-fs": "^4.1.2",
-    "rimraf": "^2.4.1",
+    "rimraf": "^2.4.3",
     "strip-bom": "^2.0.0"
   },
   "devDependencies": {
-    "@shinnn/eslintrc-node": "^1.0.2",
-    "eslint": "^0.24.0",
+    "@shinnn/eslint-config-node": "^1.0.1",
+    "eslint": "^1.4.1",
     "is-dir": "^1.0.0",
-    "istanbul": "^0.3.17",
+    "istanbul": "^0.3.19",
     "istanbul-coveralls": "^1.0.3",
     "output-file-sync": "^1.1.1",
-    "tape": "^4.0.0"
+    "tape": "^4.2.0"
   }
 }

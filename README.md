@@ -10,16 +10,15 @@
 Read a file, then remove it
 
 ```javascript
-var fs = require('fs');
-var readRemoveFile = require('read-remove-file');
+const readRemoveFile = require('read-remove-file');
 
-readRemoveFile('path/to/file', function(err, buf) {
+readRemoveFile('path/to/file', (err, buf) => {
   if (err) {
     throw err;
   }
 
   buf; //=> <Buffer ... >
-  fs.existsSync('path/to/file'); //=> false
+  fs.accessSync('path/to/file'); // Error: ENOENT
 });
 ```
 
@@ -34,7 +33,7 @@ npm install read-remove-file
 ## API
 
 ```javascript
-var readRemoveFile = require('read-remove-file');
+const readRemoveFile = require('read-remove-file');
 ```
 
 ### readRemoveFile(*filePath* [, *options*], *callback*)
@@ -50,35 +49,34 @@ It reads a file with [fs.readFile], strips [UTF-8 byte order mark](https://en.wi
 If the path is a relative path, it removes all directories included in the path.
 
 ```javascript
-readRemoveFile('foo/bar/baz', function(err, buf) {
+readRemoveFile('foo/bar/baz', (err, buf) => {
   if (err) {
     throw err;
   }
 
   buf; //=> <Buffer ... >
 
-  fs.existsSync('foo/bar/baz'); //=> false
-  fs.existsSync('foo/bar'); //=> false
-  fs.existsSync('foo'); //=> false
-  fs.existsSync('./'); //=> true
+  fs.accessSync('foo/bar/baz'); /// Error: ENOENT
+  fs.accessSync('foo/bar'); // Error: ENOENT
+  fs.accessSync('foo'); // Error: ENOENT
 });
 ```
 
-If the path is an absolute path, it doesn't remove any directories. In this case, it removes only a file.
+If the path is absolute, it doesn't remove any directories but only removes a file.
 
 ```javascript
-readRemoveFile('/foo/bar/baz', function(err, buf) {
+readRemoveFile('/foo/bar/baz', (err, buf) => {
   if (err) {
     throw err;
   }
 
   buf; //=> <Buffer ... >
 
-  fs.existsSync('/foo/bar/baz'); //=> false
+  fs.statSync('/foo/bar/baz'); // Error: ENOENT
 
-  fs.existsSync('/foo/bar'); //=> true
-  fs.existsSync('/foo'); //=> true
-  fs.existsSync('/'); //=> true
+  fs.statSync('/foo/bar').isDirectory(); //=> true
+  fs.statSync('/foo').isDirectory(); //=> true
+  fs.statSync('/').isDirectory(); //=> true
 });
 ```
 
@@ -94,14 +92,14 @@ Default: `undefined` (disabled)
 The target becomes relative to this path but the directories specified in this option won't be removed.
 
 ```javascript
-readRemoveFile('foo/bar/baz', {}, function() {
-  fs.existsSync('foo/bar'); //=> false
-  fs.existsSync('foo'); //=> false
+readRemoveFile('foo/bar/baz', {}, () => {
+  fs.statSync('foo/bar'); //=> Error: ENOENT
+  fs.statSync('foo'); //=> Error: ENOENT
 });
 
-readRemoveFile('bar/baz', {cwd: 'foo'}, function() {
-  fs.existsSync('foo/bar'); //=> false
-  fs.existsSync('foo'); //=> true
+readRemoveFile('bar/baz', {cwd: 'foo'}, () => {
+  fs.statSync('foo/bar'); //=> Error: ENOENT
+  fs.statSync('foo').isDirectory(); //=> true
 });
 ```
 

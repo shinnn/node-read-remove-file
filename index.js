@@ -4,11 +4,11 @@
 */
 'use strict';
 
-var path = require('path');
+const path = require('path');
 
-var fs = require('graceful-fs');
-var rimraf = require('rimraf');
-var stripBom = require('strip-bom');
+const fs = require('graceful-fs');
+const rimraf = require('rimraf');
+const stripBom = require('strip-bom');
 
 module.exports = function readRemoveFile(filePath, options, cb) {
   if (cb === undefined) {
@@ -20,35 +20,35 @@ module.exports = function readRemoveFile(filePath, options, cb) {
 
   if (typeof cb !== 'function') {
     throw new TypeError(
-      cb +
+      String(cb) +
       ' is not a function. Last argument to read-remove-file must be a function.'
     );
   }
 
-  var readFilePath;
+  let readFilePath;
   if (options.cwd) {
     readFilePath = path.join(options.cwd, filePath);
   } else {
     readFilePath = filePath;
   }
 
-  fs.readFile(readFilePath, options, function(readErr, buf) {
+  fs.readFile(readFilePath, options, function readFileCallback(readErr, buf) {
     if (readErr) {
       cb(readErr);
       return;
     }
 
-    var removePath;
+    let removePath;
 
     if (path.isAbsolute(readFilePath)) {
       removePath = filePath;
     } else {
-      var dir = path.normalize(path.dirname(filePath));
+      const dir = path.normalize(path.dirname(filePath));
 
       if (dir === '.') {
         removePath = readFilePath;
       } else {
-        var firstDir = dir.split(path.sep)[0];
+        const firstDir = dir.split(path.sep)[0];
 
         if (options.cwd) {
           removePath = path.join(options.cwd, firstDir);
@@ -58,7 +58,7 @@ module.exports = function readRemoveFile(filePath, options, cb) {
       }
     }
 
-    rimraf(removePath, function(removeErr) {
+    rimraf(removePath, {disableGlob: true}, function rimrafCallback(removeErr) {
       cb(removeErr, stripBom(buf));
     });
   });
