@@ -1,6 +1,6 @@
 {
   "name": "read-remove-file",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Read a file, then remove it",
   "repository": "shinnn/node-read-remove-file",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
