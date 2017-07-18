@@ -4,21 +4,15 @@
 */
 'use strict';
 
-const fs = require('graceful-fs');
-const runSeries = require('run-series');
+const {promisify} = require('util');
+const {readFile, unlink} = require('graceful-fs');
 
-module.exports = function readRemoveFile(filePath, options) {
-  return new Promise((resolve, reject) => {
-    runSeries([
-      cb => fs.readFile(filePath, options, cb),
-      cb => fs.unlink(filePath, cb)
-    ], (err, results) => {
-      if (err) {
-        reject(err);
-        return;
-      }
+const readFileP = promisify(readFile);
+const unlinkP = promisify(unlink);
 
-      resolve(results[0]);
-    });
-  });
+module.exports = async function readRemoveFile(filePath, options) {
+  const data = await readFileP(filePath, options);
+  await unlinkP(filePath);
+
+  return data;
 };
