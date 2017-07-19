@@ -4,8 +4,6 @@
 [![Build Status](https://travis-ci.org/shinnn/node-read-remove-file.svg?branch=master)](https://travis-ci.org/shinnn/node-read-remove-file)
 [![Build status](https://ci.appveyor.com/api/projects/status/pf1uwmte81vpis5b?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/node-read-remove-file)
 [![Coverage Status](https://coveralls.io/repos/github/shinnn/node-read-remove-file/badge.svg?branch=master)](https://coveralls.io/github/shinnn/node-read-remove-file?branch=master)
-[![dependencies Status](https://david-dm.org/shinnn/node-read-remove-file/status.svg)](https://david-dm.org/shinnn/node-read-remove-file)
-[![devDependencies Status](https://david-dm.org/shinnn/node-read-remove-file/dev-status.svg)](https://david-dm.org/shinnn/node-read-remove-file?type=dev)
 
 Read a file, then remove it
 
@@ -53,4 +51,4 @@ Copyright (c) 2014 - 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 
-[fs.readFile]: https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback
+[fs.readFile]: https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback

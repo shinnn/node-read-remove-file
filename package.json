@@ -6,8 +6,7 @@
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
   "scripts": {
     "pretest": "eslint --fix --format=codeframe index.js test.js",
-    "test": "node test.js",
-    "coverage": "istanbul cover test.js"
+    "test": "nyc --reporter=html --reporter=text node test.js"
   },
   "license": "MIT",
   "files": [
@@ -29,15 +28,14 @@
     "asynchronous"
   ],
   "dependencies": {
-    "graceful-fs": "^4.1.5",
-    "run-series": "^1.1.4"
+    "graceful-fs": "^4.1.5"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.13.1",
-    "istanbul": "^0.4.5",
+    "@shinnn/eslint-config-node": "^4.0.2",
+    "eslint": "^4.2.0",
+    "nyc": "^11.0.3",
     "path-exists": "^3.0.0",
-    "tape": "^4.6.3",
+    "tape": "^4.7.0",
     "write-file-atomically": "^1.0.0"
   },
   "eslintConfig": {
