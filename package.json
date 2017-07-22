@@ -1,6 +1,6 @@
 {
   "name": "read-remove-file",
-  "version": "4.0.0",
+  "version": "5.0.0-0",
   "description": "Read a file, then remove it",
   "repository": "shinnn/node-read-remove-file",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -28,12 +28,12 @@
     "asynchronous"
   ],
   "dependencies": {
-    "graceful-fs": "^4.1.5"
+    "graceful-fs": "^4.1.11"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^4.0.2",
-    "eslint": "^4.2.0",
-    "nyc": "^11.0.3",
+    "eslint": "^4.3.0",
+    "nyc": "^11.1.0",
     "path-exists": "^3.0.0",
     "tape": "^4.7.0",
     "write-file-atomically": "^1.0.0"
