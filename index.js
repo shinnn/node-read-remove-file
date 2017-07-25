@@ -1,7 +1,3 @@
-/*!
- * read-remove-file | MIT (c) Shinnosuke Watanabe
- * https://github.com/shinnn/node-read-remove-file
-*/
 'use strict';
 
 const {promisify} = require('util');

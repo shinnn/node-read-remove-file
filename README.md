@@ -47,8 +47,6 @@ readRemoveFile('path/to/file', 'utf8').then(str => {
 
 ## License
 
-Copyright (c) 2014 - 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
-
-Licensed under [the MIT License](./LICENSE).
+[Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/deed)
 
 [fs.readFile]: https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback
