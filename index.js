@@ -7,18 +7,16 @@ const readFileP = promisify(readFile);
 const unlinkP = promisify(unlink);
 
 module.exports = async function readRemoveFile(...args) {
-  const argLen = args.length;
+	const argLen = args.length;
 
-  if (argLen !== 1 && argLen !== 2) {
-    return Promise.reject(new RangeError(`Expected 1 or 2 arguments (path: <string>[, options: Object]), but got ${
-      argLen === 0 ? 'no' : argLen
-    } arguments.`));
-  }
+	if (argLen !== 1 && argLen !== 2) {
+		throw new RangeError(`Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got ${
+			argLen === 0 ? 'no' : argLen
+		} arguments.`);
+	}
 
-  const [filePath, options] = args;
+	const data = await readFileP(...args);
+	await unlinkP(args[0]);
 
-  const data = await readFileP(filePath, options);
-  await unlinkP(filePath);
-
-  return data;
+	return data;
 };

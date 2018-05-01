@@ -1,50 +1,72 @@
 'use strict';
 
+const {join} = require('path');
+const {writeFile} = require('fs/promises'); // eslint-disable-line node/no-missing-require
+
 const readRemoveFile = require('.');
 const test = require('tape');
-const writeFileAtomically = require('write-file-atomically');
 const pathExists = require('path-exists');
 
-test('readRemoveFile()', t => {
-  t.plan(7);
+test('readRemoveFile()', async t => {
+	t.plan(7);
 
-  writeFileAtomically('tmp_file0', 'foo')
-  .then(() => readRemoveFile('tmp_file0'))
-  .then(data => {
-    t.ok(Buffer.from('foo').equals(data), 'should read a file.');
-    return pathExists('tmp_file0');
-  })
-  .then(exists => t.notOk(exists, 'should remove a file.'))
-  .catch(t.fail);
+	(async () => {
+		const tmp = join(__dirname, 'tmp_file0');
 
-  writeFileAtomically('tmp_file1', 'bar')
-  .then(() => readRemoveFile('tmp_file1', 'utf8'))
-  .then(data => {
-    t.equal(data, 'bar', 'should support the second parameter of fs.readFile.');
-  })
-  .catch(t.fail);
+		await writeFile(tmp, 'foo');
+		t.ok(
+			Buffer.from('foo').equals(await readRemoveFile(tmp)),
+			'should read a file.'
+		);
+		t.notOk(await pathExists('tmp_file0'), 'should remove a file.');
+	})();
 
-  readRemoveFile('this/file/does/not/exist').then(t.fail, err => {
-    t.equal(err.code, 'ENOENT', 'should fail when it cannot read the file.');
-  }).catch(t.fail);
+	(async () => {
+		const tmp = join(__dirname, 'tmp_file1');
 
-  readRemoveFile().catch(err => {
-    t.equal(
-      err.toString(),
-      'RangeError: Expected 1 or 2 arguments (path: <string>[, options: Object]), but got no arguments.',
-      'should fail when it takes no arguments.'
-    );
-  });
+		await writeFile(tmp, 'bar');
+		t.equal(
+			await readRemoveFile(tmp, 'utf8'),
+			'bar',
+			'should support the second parameter of fs.readFile.'
+		);
+	})();
 
-  readRemoveFile('a', {b: 'c'}, 'd').catch(err => {
-    t.equal(
-      err.toString(),
-      'RangeError: Expected 1 or 2 arguments (path: <string>[, options: Object]), but got 3 arguments.',
-      'should fail when it takes too many arguments.'
-    );
-  });
+	(async () => {
+		try {
+			await readRemoveFile('this/file/does/not/exist');
+		} catch ({code}) {
+			t.equal(code, 'ENOENT', 'should fail when it cannot read the file.');
+		}
+	})();
 
-  readRemoveFile({invalid: 'argument'}).then(t.fail, err => {
-    t.equal(err.message, 'path must be a string or Buffer', 'should fail when it takes an invalid argument.');
-  }).catch(t.fail);
+	try {
+		await readRemoveFile({invalid: 'argument'});
+	} catch ({code}) {
+		t.equal(
+			code,
+			'ERR_INVALID_ARG_TYPE',
+			'should fail when it takes an invalid argument.'
+		);
+	}
+
+	try {
+		await readRemoveFile();
+	} catch (err) {
+		t.equal(
+			err.toString(),
+			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got no arguments.',
+			'should fail when it takes no arguments.'
+		);
+	}
+
+	try {
+		await readRemoveFile('a', {b: 'c'}, 'd');
+	} catch (err) {
+		t.equal(
+			err.toString(),
+			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got 3 arguments.',
+			'should fail when it takes too many arguments.'
+		);
+	}
 });

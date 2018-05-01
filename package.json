@@ -1,44 +1,43 @@
 {
-  "name": "read-remove-file",
-  "version": "5.0.0",
-  "description": "Read a file, then remove it",
-  "repository": "shinnn/node-read-remove-file",
-  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
-  "scripts": {
-    "pretest": "eslint --fix --format=codeframe index.js test.js",
-    "test": "nyc --reporter=html --reporter=text node test.js"
-  },
-  "license": "CC0-1.0",
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "file",
-    "fs",
-    "read",
-    "remove",
-    "removal",
-    "rm",
-    "delete",
-    "clean",
-    "tmp",
-    "temporary",
-    "disposable",
-    "async",
-    "asynchronous"
-  ],
-  "dependencies": {
-    "graceful-fs": "^4.1.11"
-  },
-  "devDependencies": {
-    "@shinnn/eslint-config-node": "^4.0.2",
-    "eslint": "^4.3.0",
-    "nyc": "^11.1.0",
-    "path-exists": "^3.0.0",
-    "tape": "^4.7.0",
-    "write-file-atomically": "^1.0.0"
-  },
-  "eslintConfig": {
-    "extends": "@shinnn/node"
-  }
+	"name": "read-remove-file",
+	"version": "5.0.0",
+	"description": "Read a file, then remove it",
+	"repository": "shinnn/node-read-remove-file",
+	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"scripts": {
+		"pretest": "eslint --fix --format=codeframe index.js test.js",
+		"test": "nyc --reporter=html --reporter=text node test.js"
+	},
+	"license": "CC0-1.0",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"file",
+		"fs",
+		"read",
+		"remove",
+		"removal",
+		"rm",
+		"delete",
+		"clean",
+		"tmp",
+		"temporary",
+		"disposable",
+		"async",
+		"asynchronous"
+	],
+	"dependencies": {
+		"graceful-fs": "^4.1.11"
+	},
+	"devDependencies": {
+		"@shinnn/eslint-config-node": "^5.0.0",
+		"eslint": "^4.19.1",
+		"nyc": "^11.7.1",
+		"path-exists": "^3.0.0",
+		"tape": "^4.9.0"
+	},
+	"eslintConfig": {
+		"extends": "@shinnn/node"
+	}
 }
