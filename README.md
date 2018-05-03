@@ -47,6 +47,6 @@ readRemoveFile('path/to/file', 'utf8').then(str => {
 
 ## License
 
-[Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/deed)
+[ISC License](./LICENSE) © 2018 Shinnosuke Watanabe
 
 [fs.readFile]: https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback
