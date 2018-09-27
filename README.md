@@ -1,6 +1,6 @@
 # read-remove-file
 
-[![NPM version](https://img.shields.io/npm/v/read-remove-file.svg)](https://www.npmjs.com/package/read-remove-file)
+[![npm version](https://img.shields.io/npm/v/read-remove-file.svg)](https://www.npmjs.com/package/read-remove-file)
 [![Build Status](https://travis-ci.org/shinnn/node-read-remove-file.svg?branch=master)](https://travis-ci.org/shinnn/node-read-remove-file)
 [![Build status](https://ci.appveyor.com/api/projects/status/pf1uwmte81vpis5b?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/node-read-remove-file)
 [![Coverage Status](https://coveralls.io/repos/github/shinnn/node-read-remove-file/badge.svg?branch=master)](https://coveralls.io/github/shinnn/node-read-remove-file?branch=master)
@@ -8,17 +8,18 @@
 Read a file, then remove it
 
 ```javascript
+const {access} = require('fs').promises;
 const readRemoveFile = require('read-remove-file');
 
-readRemoveFile('path/to/file').then(buf => {
-  buf; //=> <Buffer ... >
-  fs.accessSync('path/to/file'); // Error: ENOENT
-});
+(async () => {
+  const buf = await readRemoveFile('path/to/a/file'); //=> <Buffer ... >
+  await access('path/to/a/file'); // Error: ENOENT
+})();
 ```
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
 ```
 npm install read-remove-file
@@ -30,20 +31,13 @@ npm install read-remove-file
 const readRemoveFile = require('read-remove-file');
 ```
 
-### readRemoveFile(*filePath* [, *options*])
+### readRemoveFile(*path* [, *options*])
 
-*filePath*: `String`  
-*options*: `Object` or `String` ([`fs.readFile`][fs.readFile] options)  
-Return: `Promise`
+*path*: `string` `Buffer` `Uint8Array` `URL` (a file path) or `integer` (a file descriptor)  
+*options*: `Object` or `string` ([`fs.readFile`][fs.readFile] options)  
+Return: `Promise<Buffer|string>`
 
-It [reads a file][fs.readFile], [removes the file](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback) and returns a [promise](https://promisesaplus.com/) of the file contents.
-
-```javascript
-readRemoveFile('path/to/file', 'utf8').then(str => {
-  str; //=> 'file contents'
-  fs.accessSync('path/to/file'); // Error: ENOENT
-});
-```
+It [reads a file][fs.readFile], [removes the file](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback) and returns a `Promise` of the file contents.
 
 ## License
 

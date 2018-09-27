@@ -1,11 +1,10 @@
 'use strict';
 
 const {join} = require('path');
-const {writeFile} = require('fs/promises'); // eslint-disable-line node/no-missing-require
+const {access, writeFile} = require('fs').promises;
 
 const readRemoveFile = require('.');
 const test = require('tape');
-const pathExists = require('path-exists');
 
 test('readRemoveFile()', async t => {
 	t.plan(7);
@@ -14,11 +13,17 @@ test('readRemoveFile()', async t => {
 		const tmp = join(__dirname, 'tmp_file0');
 
 		await writeFile(tmp, 'foo');
+
 		t.ok(
 			Buffer.from('foo').equals(await readRemoveFile(tmp)),
 			'should read a file.'
 		);
-		t.notOk(await pathExists('tmp_file0'), 'should remove a file.');
+
+		try {
+			await access(tmp);
+		} catch ({code}) {
+			t.equal(code, 'ENOENT', 'should remove a file.');
+		}
 	})();
 
 	(async () => {
@@ -55,7 +60,7 @@ test('readRemoveFile()', async t => {
 	} catch (err) {
 		t.equal(
 			err.toString(),
-			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got no arguments.',
+			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|Uint8Array|URL|integer>[, options: <Object|string>]), but got no arguments.',
 			'should fail when it takes no arguments.'
 		);
 	}
@@ -65,7 +70,7 @@ test('readRemoveFile()', async t => {
 	} catch (err) {
 		t.equal(
 			err.toString(),
-			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got 3 arguments.',
+			'RangeError: Expected 1 or 2 arguments (path: <string|Buffer|Uint8Array|URL|integer>[, options: <Object|string>]), but got 3 arguments.',
 			'should fail when it takes too many arguments.'
 		);
 	}
