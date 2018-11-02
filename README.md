@@ -2,8 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/read-remove-file.svg)](https://www.npmjs.com/package/read-remove-file)
 [![Build Status](https://travis-ci.org/shinnn/node-read-remove-file.svg?branch=master)](https://travis-ci.org/shinnn/node-read-remove-file)
-[![Build status](https://ci.appveyor.com/api/projects/status/pf1uwmte81vpis5b?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/node-read-remove-file)
-[![Coverage Status](https://coveralls.io/repos/github/shinnn/node-read-remove-file/badge.svg?branch=master)](https://coveralls.io/github/shinnn/node-read-remove-file?branch=master)
+![Coverage Status](https://coveralls.io/repos/github/shinnn/node-read-remove-file/badge.svg?branch=master)](https://coveralls.io/github/shinnn/node-read-remove-file?branch=master)
 
 Read a file, then remove it
 
