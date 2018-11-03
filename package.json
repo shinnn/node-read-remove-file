@@ -4,11 +4,11 @@
 	"description": "Read a file, then remove it",
 	"repository": "shinnn/node-read-remove-file",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"license": "ISC",
 	"scripts": {
 		"pretest": "eslint .",
 		"test": "nyc node test.js"
 	},
-	"license": "ISC",
 	"files": [
 		"index.js"
 	],
@@ -28,10 +28,10 @@
 		"asynchronous"
 	],
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.7.1",
-		"eslint": "^5.6.0",
-		"nyc": "^13.0.1",
-		"nyc-config-common": "^1.0.0",
+		"@shinnn/eslint-config": "^6.8.0",
+		"eslint": "^5.8.0",
+		"nyc": "^13.1.0",
+		"nyc-config-common": "^1.0.1",
 		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
